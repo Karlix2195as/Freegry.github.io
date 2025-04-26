@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Free</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Zmieniono na jednolite czarne tło */
+            color: white;
+        }
+        .container {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        button {
+            background-color: red;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:active {
+            background-color: gray;
+            color: white;
+        }
+        .instructions {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Schedule 1 Free</h1>
+        <button onclick="downloadFile()">Kliknij, aby pobrać</button>
+        <button onclick="requestGame()">Prośba o grę</button>
+        <button onclick="openChat()">Otwórz czat</button>
+        <div id="requestForm" style="display:none; margin-top:20px;">
+            <h2>Prośba o grę</h2>
+            <form onsubmit="submitRequest(event)">
+                <label for="gameName">Nazwa gry:</label>
+                <input type="text" id="gameName" name="gameName" required>
+                <br><br>
+                <button type="submit">Wyślij prośbę</button>
+            </form>
+        </div>
+        <div id="chatWindow" style="display:none; border:1px solid #ccc; padding:10px; margin-top:20px; width:300px; height:400px; overflow-y:auto; background-color:white; color:black;">
+            <h3>Czat z administratorem</h3>
+            <div id="chatMessages" style="height:300px; overflow-y:auto; border:1px solid #ddd; padding:5px; margin-bottom:10px;">
+                <!-- Wiadomości będą tutaj -->
+            </div>
+            <input type="text" id="chatInput" placeholder="Napisz wiadomość..." style="width:80%;">
+            <button onclick="sendMessage()">Wyślij</button>
+        </div>
+        <div class="instructions">
+            <h2>Jak pobrać:</h2>
+            <ol>
+                <li>Pobierz Steam. Jeśli już masz, uruchom go.</li>
+                <li>Pobierz pliki: <strong>st_setup</strong> i <strong>schedule</strong>.</li>
+                <li>Kliknij na pulpicie <strong>st_setup</strong> i zainstaluj.</li>
+                <li>Uruchom program i poczekaj.</li>
+                <li>Z plików <strong>schedule</strong> wyodrębnij lub wypakuj je na pulpit.</li>
+                <li>Przenieś te pliki do folderu z ikoną Steam (tzw. "oczko").</li>
+                <li>Uruchom ponownie Steam i gotowe!</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function downloadFile() {
+            // Otwieranie linku do strony example.com
+            window.location.href = 'https://mega.nz/folder/B2MTQSpa#UR7Iwk6BRvC0fvKbMuNCqg';
+        }
+
+        function requestGame() {
+            const form = document.getElementById('requestForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function submitRequest(event) {
+            event.preventDefault();
+            const gameName = document.getElementById('gameName').value;
+            alert(`Prośba o grę \"${gameName}\" została wysłana!`);
+            document.getElementById('requestForm').style.display = 'none';
+        }
+
+        function openChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.style.display = chatWindow.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function sendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const chatMessages = document.getElementById('chatMessages');
+
+            if (chatInput.value.trim() !== '') {
+                const message = document.createElement('div');
+                message.textContent = `Ty: ${chatInput.value}`;
+                message.style.marginBottom = '5px';
+                chatMessages.appendChild(message);
+
+                // Symulacja odpowiedzi administratora
+                setTimeout(() => {
+                    const adminMessage = document.createElement('div');
+                    adminMessage.textContent = 'Administrator: Dziękujemy za wiadomość!';
+                    adminMessage.style.marginBottom = '5px';
+                    adminMessage.style.color = 'blue';
+                    chatMessages.appendChild(adminMessage);
+                }, 1000);
+
+                chatInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
